@@ -102,7 +102,7 @@ if lista_acoes:
         if botao:
             investimento_total, df = otimizar_portfolio_inteiro_ajustado(acoes_selecionadas,cotacoes_historicas,classificacoes_risco,dividendos_historicos,orcamento)
             st.write(f'Valor do investimento total: R$ {investimento_total:.2f}')
-            st.write(df.sort_values(by=['Qtd de ações a comprar'], ascending=False))        
+            st.write(df.sort_values(by=['Qtd de ações a comprar'], ascending=False))       
     else:
         st.write('Selecione ao menos uma ação para visualizar os dados.')
 else:
