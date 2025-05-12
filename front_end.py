@@ -5,7 +5,7 @@ import investpy
 import time
 from curl_cffi import requests
 
-# Config Session Yfinance  
+# Config Session Yfinance  (Issue Resolved: https://github.com/ranaroussi/yfinance/issues/2422#issuecomment-2840774505)
 session = requests.Session(impersonate="chrome")
 
 # Título da Aplicação
