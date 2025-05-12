@@ -2,6 +2,11 @@ import streamlit as st
 import yfinance as yf
 from back_end import otimizar_portfolio_inteiro_ajustado
 import investpy
+import time
+from curl_cffi import requests
+
+# Config Session Yfinance  
+session = requests.Session(impersonate="chrome")
 
 # Título da Aplicação
 st.title('Análise de Ações Brasileiras')
@@ -58,22 +63,20 @@ if lista_acoes:
         # Obtendo dados para cada ação selecionada
         for indice, acao in enumerate(acoes_selecionadas):
             try:
-                ticker = yf.Ticker(acao)
-                # Cotações históricas
+                ticker = yf.Ticker(acao, session = session)
                 historico = ticker.history(period=periodo)
-                # Dividendos
                 dividendos = ticker.dividends
                 data[acao] = {
                     'historico': historico,
                     'dividendos': dividendos
                 }
-                # Armazenar os dados nos dicionários separados
                 cotacoes_historicas[acao] = historico['Close'].tolist()
                 dividendos_historicos[acao] = dividendos.tolist()
 
             except Exception as e:
                 st.error(f'Erro ao obter dados para {acao}: {e}')
                 continue
+
             # Atualiza a barra de progresso
             progresso.progress((indice + 1) / total_acoes)
 
